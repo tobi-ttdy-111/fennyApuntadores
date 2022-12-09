@@ -1,0 +1,48 @@
+
+# include <stdio.h>
+# include <stdlib.h>
+# include <stdio_ext.h>
+
+// variables generales
+int cantidadHombres = 0,cantidadMujeres = 0, edadM = 0;
+int * edades = (int* )malloc(5* sizeof(int));
+char * sexoMF = (char* )malloc(5* sizeof(char));
+char * * nombre = (char* * )malloc(5* sizeof(char* ));
+
+int main(){
+
+    for(int i = 0; i < 5; i++) {
+        *(nombre + i) = (char*) malloc (20*sizeof(char));
+        printf("Persona [%d]\n", i+1);
+        printf("\tNombre: ");
+        scanf("%[^\n]", (*(nombre + i) + 0));
+        __fpurge(stdin);
+        printf("\tSexo: ");
+        scanf(" %c", (sexoMF + i));
+        __fpurge(stdin);
+        printf("\tEdad: ");
+        scanf("%d", (edades + i));
+        __fpurge(stdin);
+    };
+    for(int i = 0; i < 5; i++)
+    {
+        if(*(sexoMF+i) == 'f' || *(sexoMF+i) == 'F') cantidadMujeres++;
+        else cantidadHombres++;
+    }
+    for(int i = 0; i < 5; i++) { if(*(edades + i) > edadM) edadM = *(edades + i); }
+    printf("\n El numero de cantidadMujeres es de: %d ", cantidadMujeres);
+    printf("\n EL numero de cantidadHombres es de: %d ", cantidadHombres);
+    printf("\n El estudiante con mayor edades tiene: %d años", edadM);
+    printf("\n Su informacion es: ");
+    for(int i = 0; i < 5; i++) {
+        if(*(edades + i) == edadM ) {
+            printf("\n\tNombre: %s", *(nombre + i));
+            printf("\n\tSexo: %c", *(sexoMF + i));
+            printf("\n\tEdad: %d años\n",*(edades + i));
+        }
+    }
+    for (int k = 0; k < 5; k++) { free(*(nombre+k));};
+    free(edades);
+    free(sexoMF);
+    return 0;
+}
